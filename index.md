@@ -1,4 +1,4 @@
-# Comp Sci  30
+# Comp Sci 30
 
 ## Demos
 - [Square Moving Around](square-moving)
