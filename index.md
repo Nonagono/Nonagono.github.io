@@ -2,9 +2,9 @@
 
 ## Demos
 - [Square Moving Around](square-moving)
-
+- [Mouse Following Circle](mouse-circle)
 
 ## Projects
-- [Mouse Following Circle](mouse-circle)
+
 
 
