@@ -5,6 +5,6 @@
 
 
 ## Projects
--[Mouse Following Circle](mouse-circle)
+- [Mouse Following Circle](mouse-circle)
 
 
