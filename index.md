@@ -5,6 +5,6 @@
 - [Mouse Following Circle](mouse-circle)
 
 ## Projects
-
+- [Interactive Scene](interactive-scene)
 
 
