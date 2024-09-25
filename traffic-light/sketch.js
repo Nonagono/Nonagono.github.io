@@ -5,9 +5,11 @@
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/#/p5/millis
 
-let wait = 2000;
-let pWait = 0;
-let lC = 'green';
+let lState = "green";
+let previousSwitchTime = 0;
+const GREEN_LIGHT_DURATION = 6000;
+const YELLOW_LIGHT_DURATION = 2000;
+const RED_LIGHT_DURATION = 6000;
 
 function setup() {
   createCanvas(600, 600);
@@ -16,27 +18,42 @@ function setup() {
 function draw() {
   background(255);
   drawOutlineOfLights();
+  changeState();
   lightColour();
 }
 
-function lightColour() {
-  if (millis() > wait + pWait)
-    if (lC === 'green') {
-      fill(lC);
-      ellipse(width/2, height/2 + 65, 50, 50);
-      pWaitwait = millis();
-    }
-    if (lc === 'yellow') {
-      fill(lC);
-      ellipse(width/2, height/2, 50, 50);
-      pWaitait = millis() + 4000;
-    }
-    if (lC === 'red') {
-      fill(lC);
-      ellipse(width/2, height/2 - 65, 50, 50);
-      pWaitwait = millis() + 4000;
-    }
+function changeState() {
+  if (lState === "green" && millis() > previousSwitchTime + GREEN_LIGHT_DURATION) {
+    lState = "yellow";
+    previousSwitchTime = millis();
+  }
+  else if (lState === "yellow" && millis() > previousSwitchTime + YELLOW_LIGHT_DURATION) {
+    lState = "red";
+    previousSwitchTime = millis();
+  }
+  else if (lState === "red" && millis() > previousSwitchTime + RED_LIGHT_DURATION) {
+    lState = "green";
+    previousSwitchTime = millis();
+  }
 }
+
+function lightColour() {
+  if (lState === "green") {
+    fill("green");
+    ellipse(width/2, height/2 + 65, 50, 50);
+  }
+  else if (lState === "yellow"){
+    fill("yellow");
+    ellipse(width/2, height/2, 50, 50);
+  }
+  else if (lState === "red") {
+    fill("red");
+    ellipse(width/2, height/2 - 65, 50, 50);
+  }
+
+}
+    
+
 
 function drawOutlineOfLights() {
   //box
