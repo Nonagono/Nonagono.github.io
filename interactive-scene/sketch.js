@@ -7,7 +7,7 @@
 
 const GAME_BOARD_WIDTH = 900;
 const GAME_BOARD_HEIGHT = 880;
-const CIRCLE_RADIUS = 100;
+const CIRCLE_RADIUS = 40;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,18 +15,23 @@ function setup() {
 
 function draw() {
   background(220);
-  gameBaord();
+  gameBoard();
 }
 
-function gameBaord() {
+function gameBoard() {
   fill("blue");
-  rect(0, 0, GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT);
+  for (let x = 0; x < GAME_BOARD_WIDTH; x += GAME_BOARD_WIDTH/7) {
+    // fill(random(255), random(255), random(255));
+    rect(0, 0, GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT)/7;
+  }
+  holes();
 }
 
 function holes() {
-  for (let x = CIRCLE_RADIUS; x <= GAME_BOARD_WIDTH - CIRCLE_RADIUS; x++) {
-    for (let y = CIRCLE_RADIUS; x <= GAME_BOARD_HEIGHT - CIRCLE_RADIUS; y++) {
-      //placeholder
+  for (let x = 90; x < GAME_BOARD_WIDTH; x += 120) {
+    for (let y = 90; y <  GAME_BOARD_HEIGHT; y+= 120) {
+      fill("white");
+      circle(x, y, CIRCLE_RADIUS * 2);
     }
   }
 }
