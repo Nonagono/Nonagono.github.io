@@ -23,6 +23,7 @@ let boardArray = [[0,0,0,0,0,0,0],
                   [0,0,0,0,0,0,0], 
                   [0,0,0,0,0,0,0], 
                   [0,0,0,0,0,0,0], 
+                  [0,0,0,0,0,0,0], 
                   [0,0,0,0,0,0,0]]
 let playerTurn = 1;
 
@@ -33,8 +34,8 @@ function setup() {
 
 function draw() {
   background(220);
-  gameBoard();
   chips();
+  gameBoard();
 }
 
 //Creates the background for the game board
