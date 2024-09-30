@@ -89,10 +89,9 @@ function colourCircles() {
     if (playerTurn === 1) {
       while(playerTurn === 1) {
         arrayValue = boardArray[i][columnPosition];
-        console.log(arrayValue);
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 2;
-          for (let timer = 0; timer < 100000; timer++) {
+          for (let timer = 0; timer < 10000; timer++) {
             console.log(timer);
           }
           i = 5;
@@ -103,13 +102,12 @@ function colourCircles() {
         }
       }
     }
-    if (playerTurn === 2) {
+    else if (playerTurn === 2) {
       while(playerTurn === 2) {
         arrayValue = boardArray[i][columnPosition];
-        console.log(arrayValue);
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 3;
-          for (let timer = 0; timer < 100000; timer++) {
+          for (let timer = 0; timer < 10000; timer++) {
             console.log(timer);
           }
           i = 5;
