@@ -3,7 +3,7 @@
 // Oct 1, 2024
 //
 // Extra for Experts:
-// - Used an array/matrix for circle positions, used the scroll wheel function to have a triangle move around.
+// - Used an array/matrix for circle positions, used the scroll wheel function to have a triangle move around, used 'break'.
 
 
 // Constants and variables used
@@ -18,8 +18,7 @@ let arrowX3 = 120;
 let columnPosition = 0;
 let rows = 6;
 let columns = 7;
-//let boardArray = Array(6).fill().map(() => Array(7).fill(1));
-let boardArray = [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
+let boardArray = Array(6).fill().map(() => Array(7).fill(0)); // does this but with less typing  ==> let boardArray = [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
 let playerTurn = 1;
 let i = 5;
 let arrayValue;
@@ -32,9 +31,10 @@ function draw() {
   background(220);
   gameBoard();
   colourCircles();
+  text("Scrollwheel to move, spacebar to place", 50, 850);
 }
 
-//Creates the background for the game board and runs the holes and placementArrow functions.
+//Creates a blue background for the game board and runs the holes and placementArrow functions.
 function gameBoard() {
   fill("blue");
   rect(0, 0, GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT);
@@ -58,8 +58,9 @@ function holes() {
   }
 }
 
-// Creates a triangle to show which column your chip will be placed in.
+// Creates a white triangle to show which column your circle will change colour.
 function placementArrow() {
+  fill("white")
   triangle(arrowX1, 20, arrowX2, 50, arrowX3, 20);
 }
 
@@ -83,7 +84,7 @@ function mouseWheel(event) {
   }
 }
 
-// When the space bar is pressed, changes the colour of the lowest circle it can
+// When the space bar is pressed, changes the colour depending on the playerTurn state of the lowest circle it can.
 function colourCircles() {
   if (keyIsDown(32)) {
     if (playerTurn === 1) {
@@ -91,7 +92,7 @@ function colourCircles() {
         arrayValue = boardArray[i][columnPosition];
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 2;
-          for (let timer = 0; timer < 10000; timer++) {
+          for (let timer = 0; timer < 100000; timer++) {
             console.log(timer);
           }
           i = 5;
@@ -100,6 +101,11 @@ function colourCircles() {
         else if(i > 0){
           i -= 1;
         }
+        //Exits while loop to stop code from crashing
+        else if (i === 0){
+          i = 5;
+          break;
+        }
       }
     }
     else if (playerTurn === 2) {
@@ -107,7 +113,7 @@ function colourCircles() {
         arrayValue = boardArray[i][columnPosition];
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 3;
-          for (let timer = 0; timer < 10000; timer++) {
+          for (let timer = 0; timer < 100000; timer++) {
             console.log(timer);
           }
           i = 5;
@@ -115,6 +121,11 @@ function colourCircles() {
         }
         else if(i > 0){
           i -= 1;
+        }
+        //Exits while loop to stop code from crashing
+        else if (i === 0){
+          i = 5;
+          break;
         }
       }
     }
