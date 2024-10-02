@@ -92,6 +92,7 @@ function colourCircles() {
         arrayValue = boardArray[i][columnPosition];
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 2;
+          //Acts as a timer so that when space bar is pressed it doesn't try to create 60 circles every second.
           for (let timer = 0; timer < 100000; timer++) {
             console.log(timer);
           }
@@ -113,6 +114,7 @@ function colourCircles() {
         arrayValue = boardArray[i][columnPosition];
         if (arrayValue === 0) {
           boardArray[i][columnPosition] = 3;
+          //Acts as a timer so that when space bar is pressed it doesn't try to create 60 circles every second.
           for (let timer = 0; timer < 100000; timer++) {
             console.log(timer);
           }
