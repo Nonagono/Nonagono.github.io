@@ -42,9 +42,9 @@ function spawner(theX,theY) {
   let ball = {
     x: theX,
     y: theY,
-    r: random(3, 6),
-    dx: random(-50, 50),
-    dy: random(-50, 50),
+    r: random(1, 100),
+    dx: random(-100, 100),
+    dy: random(-100, 100),
     red: random(255),
     green: random(255),
     blue: random(225),

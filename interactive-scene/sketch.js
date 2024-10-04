@@ -53,14 +53,14 @@ function holes() {
       if (boardArray[r][c] === 3) {
         fill("yellow");
       }
-    circle(c * CIRCLE_DEVIATION + BOARD_OFFSET, r * CIRCLE_DEVIATION + BOARD_OFFSET, CIRCLE_RADIUS * 2);
+      circle(c * CIRCLE_DEVIATION + BOARD_OFFSET, r * CIRCLE_DEVIATION + BOARD_OFFSET, CIRCLE_RADIUS * 2);
     }
   }
 }
 
 // Creates a white triangle to show which column your circle will change colour.
 function placementArrow() {
-  fill("white")
+  fill("white");
   triangle(arrowX1, 20, arrowX2, 50, arrowX3, 20);
 }
 
