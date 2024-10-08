@@ -1,6 +1,6 @@
-// Project Title
-// Your Name
-// Date
+// Arrays and Object Notation: Placeholder
+// Chase Buniak
+// October 21, 2024
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
