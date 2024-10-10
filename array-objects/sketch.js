@@ -7,13 +7,14 @@
 
 
 // Variables and constants used
+let bGC = 'black';
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(220);
+  background(bGC);
 }
 
 
@@ -24,4 +25,9 @@ function spawnCactus() {
     catusHeight: random(5, 10),
     catusWidth: 5,
   };
+}
+
+function changeBackgroundColour() {
+  fill('white');
+  rect(width - 50, 0, 50, 50);
 }
