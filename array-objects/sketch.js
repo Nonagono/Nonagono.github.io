@@ -7,7 +7,8 @@
 
 
 // Variables and constants used
-let bGC = 'black';
+let bGCState = true;
+let bGC = "white";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,8 +16,8 @@ function setup() {
 
 function draw() {
   background(bGC);
+  displayButton();
 }
-
 
 // Holds the variables for the object Cactus
 function spawnCactus() {
@@ -27,7 +28,21 @@ function spawnCactus() {
   };
 }
 
-function changeBackgroundColour() {
-  fill('white');
-  rect(width - 50, 0, 50, 50);
+// Displays a grey button at the top right of the screen
+function displayButton() {
+  fill(255/2);
+  rect(width - 75, 0, 75, 75); 
+}
+
+// Changes the background colour between white and black when you click inside the bounds of displayButton().
+function mousePressed() {
+  if (mouseX >= width - 75 && mouseY <= 75) {
+    bGCState = !bGCState;
+    if (bGCState) {
+      bGC = "white";
+    }
+    else if (!bGCState) {
+      bGC = "black";
+    }
+  }
 }
