@@ -13,6 +13,7 @@ let bGC = "white";
 let y;
 let characterPosition;
 let characterHeight = 100;
+let yx = 1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -23,12 +24,12 @@ function setup() {
 function draw() {
   background(bGC);
   displayGame();
+  crouch();
 }
 
 // Displays every element of the game
 function displayGame() {
   noStroke();
-  // stroke(0);
   displayButton();
   displayCharacter();
   displayGround();
@@ -75,5 +76,27 @@ function spawnCactus() {
     catusHeight: random(5, 10),
     catusWidth: 5,
   };
+
   cacti.push(someCactus);
+}
+
+// comment
+function keyPressed() {
+  if (keyCode === 32) {
+// 
+  }
+}
+
+// Reduces the characterHeight variable to simulate crouching if the down arrow is held
+function crouch() {
+  if (keyIsDown(DOWN_ARROW)) {
+    characterHeight = 75;
+  }
+  else {
+    characterHeight = 100;
+  }
+}
+
+function displayCacti() {
+// 
 }
