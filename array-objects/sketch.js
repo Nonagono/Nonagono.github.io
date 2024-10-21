@@ -11,18 +11,24 @@ let cacti = [];
 let bGCState = true;
 let bGC = "white";
 let y;
+let ground;
 let characterPosition;
 let characterHeight = 100;
-let yx = 1;
+let yx = 0;
 let start = false;
 let universalGrey = 255/2;
 let song;
 let musicPlaying = false;
 let v = 0.5;
+let g = 0.1;
+let drag;
+let isJumping = false;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  y = height/3 *2;
+  ground = height/3 *2;
+  y = ground;
   characterPosition = width/8;
   song = createAudio('tetris-theme.mp3');
 }
@@ -54,8 +60,8 @@ function displayCharacter() {
   fill('pink');
   ellipse(characterPosition, y - characterHeight/2, 100, characterHeight);
   fill('mediumslateblue');
-  circle(characterPosition, y - characterHeight/1.5, 10)
-  circle(characterPosition + 20, y - characterHeight/1.5, 10)
+  circle(characterPosition, y - characterHeight/1.5, 10);
+  circle(characterPosition + 20, y - characterHeight/1.5, 10);
 }
 
 // Creates a line to act as the ground for the character and cacti
@@ -88,7 +94,7 @@ function spawnCactus() {
   cacti.push(someCactus);
 }
 
-// Sets the start state to true when the space bar is pressed, jumps when the up arrow is pressed, plays music when m is pressed.
+// Sets the start state to true when the space bar is pressed, runs the jump function when the up arrow is pressed, plays music when m is pressed.
 function keyPressed() {
   if (keyCode === 32) {
     start = true;
@@ -96,6 +102,21 @@ function keyPressed() {
   if (keyCode === 77) {
     musicPlaying = !musicPlaying;
   }
+  if (keyCode === 38) {
+    if (!isJumping) {
+      isJumping = true;
+      jump();
+    }
+  }
+}
+
+function jump() {
+  if (isJumping) {
+    yx += g;
+    y -= yx;
+    yx -= 0.01;
+  }
+  isJumping = false;
 }
 
 // Reduces the characterHeight variable to simulate crouching if the down arrow is held
