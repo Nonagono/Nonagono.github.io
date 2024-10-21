@@ -14,17 +14,24 @@ let y;
 let characterPosition;
 let characterHeight = 100;
 let yx = 1;
+let start = false;
+let universalGrey = 255/2;
+let song;
+let musicPlaying = false;
+let v = 0.5;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   y = height/3 *2;
   characterPosition = width/8;
+  song = createAudio('tetris-theme.mp3');
 }
 
 function draw() {
   background(bGC);
   displayGame();
   crouch();
+  playSong();
 }
 
 // Displays every element of the game
@@ -33,11 +40,12 @@ function displayGame() {
   displayButton();
   displayCharacter();
   displayGround();
+  displayCacti();
 }
 
 // Displays a grey button at the top right of the screen
 function displayButton() {
-  fill(255/2);
+  fill(universalGrey);
   rect(width - 75, 0, 75, 75); 
 }
 
@@ -52,7 +60,7 @@ function displayCharacter() {
 
 // Creates a line to act as the ground for the character and cacti
 function displayGround() {
-  stroke(255/2);
+  stroke(universalGrey);
   line(0, height/3 * 2, width, height/3 * 2);
 }
 
@@ -69,7 +77,7 @@ function mousePressed() {
   }
 }
 
-// Holds the variables for the object Cactus
+// Holds the variables for the object someCactus
 function spawnCactus() {
   let someCactus = {
     dx: 1,
@@ -80,10 +88,13 @@ function spawnCactus() {
   cacti.push(someCactus);
 }
 
-// comment
+// Sets the start state to true when the space bar is pressed, jumps when the up arrow is pressed, plays music when m is pressed.
 function keyPressed() {
   if (keyCode === 32) {
-// 
+    start = true;
+  }
+  if (keyCode === 77) {
+    musicPlaying = !musicPlaying;
   }
 }
 
@@ -97,6 +108,21 @@ function crouch() {
   }
 }
 
+// Displays text with the controls until the space bar is pressed , then starts spawning obstacles
 function displayCacti() {
-// 
+  if (start === false) {
+    fill(universalGrey);
+    textSize(30);
+    text("Up arrow to jump, down arrow to crouch, space to start, m to play the tetris theme.", width/5, height/3);
+  }
+  else {
+    // 
+  }
+}
+
+function playSong() {
+  song.volume(v);
+  if (musicPlaying === true) {
+    song.play();
+  }
 }
