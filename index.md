@@ -10,6 +10,7 @@
 - [Perlin Noise Ball](07-perlin)
 - [Terrain Generator](08-terrain)
 - [Bubble Movement](09-bubbles)
+- [Grid Demo](11-grid)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
