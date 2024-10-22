@@ -34,7 +34,7 @@ function setup() {
   song = createAudio('tetris-theme.mp3');
 
   // Creates a boulder every three quarters of a second.
-  intervalID = window.setInterval(createBoulder, 750)
+  intervalID = window.setInterval(createBoulder, 750);
 }
 
 function draw() {
@@ -138,7 +138,7 @@ function airBoulder() {
     return ground;
   }
   else {
-    return (ground - 130);
+    return ground - 130;
   }
 }
 
@@ -201,9 +201,9 @@ function byeBoulders() {
 // Calculates the distance between the character and the boulders to know if you get hit, stops the spawning of boulders if you are hit and displays game ever text.
 function gameOver() {
   for (let boulder of boulders) {
-    let d = dist(characterPosition, y - characterDiameter/2, boulder.boulderX, boulder.boulderY)
+    let d = dist(characterPosition, y - characterDiameter/2, boulder.boulderX, boulder.boulderY);
     if (d < MINIMUM_DISTANCE_POSSIBLE) {
-      boulder.dx = 0
+      boulder.dx = 0;
       fill(universalGrey);
       textSize(50);
       text("Game Over! Refresh to play again.", width/3.5, height/2.5);
