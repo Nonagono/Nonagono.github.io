@@ -17,6 +17,16 @@ function setup() {
   grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
 }
 
+function windowResized() {
+  if (windowWidth < windowHeight) {
+    resizeCanvas(windowWidth, windowWidth);
+  }
+  else {
+    resizeCanvas(windowHeight, windowHeight);
+  }
+  cellSize = height/GRID_SIZE;
+}
+
 function draw() {
   background(220);
   displayGrid();
@@ -31,13 +41,25 @@ function keyPressed() {
   }
 }
 function mousePressed() {
-  let xValue = round(mouseX/cellSize);
-  let yValue = round(mouseY/cellSize);
-  if (grid[yValue][xValue] === 1) {
-    grid[yValue][xValue] = 0;
-  }
-  else {
-    grid[yValue][xValue] = 1;
+  let xValue = floor(mouseX/cellSize);
+  let yValue = floor(mouseY/cellSize);
+
+  toggleCell(xValue, yValue);
+
+  toggleCell(xValue - 1, yValue);
+  toggleCell(xValue + 1, yValue);
+  toggleCell(xValue, yValue - 1);
+  toggleCell(xValue, yValue + 1);
+}
+
+function toggleCell(x, y) {
+  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
+    if (grid[y][x] === 0) {
+      grid[y][x] = 1;
+    }
+    else {
+      grid[y][x] = 0;
+    }
   }
 }
 
