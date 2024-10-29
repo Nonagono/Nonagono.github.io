@@ -11,9 +11,11 @@
 - [Terrain Generator](08-terrain)
 - [Bubble Movement](09-bubbles)
 - [Grid Demo](11-grid)
+- [Game of Life](12-gol)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
 - [Arrays and Object Notation](array-objects)
+- [Grid assignment](grid-assignment)
 
 

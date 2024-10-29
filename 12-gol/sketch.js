@@ -1,13 +1,24 @@
 // Grid Demo
-// Chase Buniak
+// Dan Schellenberg
 // Oct 22, 2024
+
+// if hardcoding the grid, use this:
+// let grid = [[1, 0, 0, 1],
+//             [0, 1, 1, 0],
+//             [1, 0, 1, 1],
+//             [1, 1, 1, 0]];
 
 let grid;
 let cellSize;
 const GRID_SIZE = 40;
 let shouldToggleNeighbours = false;
-let autoPlay = false;
-let render = 5;
+let autoPlayIsOn = false;
+let renderOnFrameNumber =  5;
+let gosper;
+
+function preload() {
+  gosper = loadJSON("gosper-gun.json");
+}
 
 function setup() {
   if (windowWidth < windowHeight) {
@@ -32,7 +43,7 @@ function windowResized() {
 
 function draw() {
   background(220);
-  if (autoPlay && frameCount % render === 0) {
+  if (autoPlayIsOn && frameCount % renderOnFrameNumber === 0) {
     grid = updateGrid();
   }
   displayGrid();
@@ -79,8 +90,11 @@ function keyPressed() {
   if (key === " ") {
     grid = updateGrid();
   }
-  if (key === 'a') {
-    autoPlay = !autoPlay;
+  if (key === "a") {
+    autoPlayIsOn = !autoPlayIsOn;
+  }
+  if (key === "g") {
+    grid = gosper;
   }
 }
 
