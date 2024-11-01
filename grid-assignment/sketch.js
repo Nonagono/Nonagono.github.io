@@ -12,10 +12,8 @@ const GRID_SIZE = 8;
 let tileIsLight = true;
 const LIGHT_TILE = 0;
 const DARK_TILE = 1;
-let playerPiece = 3;
-let playerKing = 4;
-let botPiece = 5;
-let botKing = 6;
+let playerPiece = 2;
+let botPiece = 3;
 
 function setup() {
   if (windowWidth < windowHeight) {
@@ -44,12 +42,17 @@ function draw() {
 }
 
 function mousePressed() {
-  let x = Math.floor(mouseX/cellSize);
-  let y = Math.floor(mouseY/cellSize);
+  let clickX = Math.floor(mouseX/cellSize);
+  let clickY = Math.floor(mouseY/cellSize);
 
-  if (grid[y][x] === playerPiece || grid[y][x] === playerKing) {
-    // highlightSquare(x, y);
-  }
+  // for (let piece of grid) {
+  //   if (grid[clickY][clickX] === playerPiece) {
+  //     piece.pieceStroke = 255;
+  //   }
+  //   else {
+  //     piece.pieceStroke = 0;
+  //   }
+  // }
 }
 
 // function highlightSquare(x, y) {
@@ -59,9 +62,9 @@ function mousePressed() {
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
+      stroke(0);
       if (grid[y][x] === DARK_TILE) {
         makeSquares(x, y);
-        square(x * cellSize, y * cellSize, cellSize);
       }
       else if (grid[y][x] === LIGHT_TILE) {
         makeSquares(x, y);
@@ -69,22 +72,12 @@ function displayGrid() {
       else if (grid[y][x] === playerPiece) {
         makeSquares(x, y);
         fill(20, 20, 20);
-        circle(x * cellSize + cellSize/2, y * cellSize + cellSize/2, cellSize/1.5);
-      }
-      else if (grid[y][x] === playerKing) {
-        makeSquares(x, y);
-        fill(0);
-        circle(x * cellSize + cellSize/2, y * cellSize + cellSize/2, cellSize/1.5);
+        makePieces(x, y);
       }
       else if (grid[y][x] === botPiece) {
         makeSquares(x, y);
         fill(200, 200, 200);
-        circle(x * cellSize + cellSize/2, y * cellSize + cellSize/2, cellSize/1.5);
-      }
-      else if (grid[y][x] === botKing) {
-        makeSquares(x, y);
-        fill(255);
-        circle(x * cellSize + cellSize/2, y * cellSize + cellSize/2, cellSize/1.5);
+        makePieces(x, y);
       }
     }
   }
@@ -98,6 +91,26 @@ function makeSquares(x, y) {
     fill(216, 181, 137);
   }
   square(x * cellSize, y * cellSize, cellSize);
+}
+
+function makePieces(x, y) {
+  let pieceGoalFinder;
+  if (y > 4) {
+    pieceGoalFinder = 8;
+  }
+  else if (y < 3) {
+    pieceGoalFinder = 0;
+  }
+  let basicPiece = {
+    pieceX: x * cellSize + cellSize/2,
+    pieceY: y * cellSize + cellSize/2,
+    pieceD: cellSize/1.5,
+    pieceGoal: GRID_SIZE - pieceGoalFinder,
+  };
+
+  grid.push(basicPiece);
+  // stroke();
+  circle(basicPiece.pieceX, basicPiece.pieceY, basicPiece.pieceD);
 }
 
 function generateBoard(cols, rows) {

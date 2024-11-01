@@ -12,10 +12,8 @@ const GRID_SIZE = 8;
 let tileIsLight = true;
 const LIGHT_TILE = 0;
 const DARK_TILE = 1;
-let playerPiece = 3;
-let playerKing = 4;
-let botPiece = 5;
-let botKing = 6;
+let playerPiece = 2;
+let botPiece = 3;
 
 function setup() {
   if (windowWidth < windowHeight) {
@@ -47,7 +45,7 @@ function mousePressed() {
   let x = Math.floor(mouseX/cellSize);
   let y = Math.floor(mouseY/cellSize);
 
-  if (grid[y][x] === playerPiece || grid[y][x] === playerKing) {
+  if (grid[y][x] === playerPiece) {
     // highlightSquare(x, y);
   }
 }
@@ -68,22 +66,12 @@ function displayGrid() {
       else if (grid[y][x] === playerPiece) {
         makeSquares(x, y);
         fill(20, 20, 20);
-        makeCircle(x, y);
-      }
-      else if (grid[y][x] === playerKing) {
-        makeSquares(x, y);
-        fill(0);
-        makeCircle(x, y);
+        makePieces(x, y);
       }
       else if (grid[y][x] === botPiece) {
         makeSquares(x, y);
         fill(200, 200, 200);
-        makeCircle(x, y);
-      }
-      else if (grid[y][x] === botKing) {
-        makeSquares(x, y);
-        fill(255);
-        makeCircle(x, y);
+        makePieces(x, y);
       }
     }
   }
@@ -100,14 +88,22 @@ function makeSquares(x, y) {
 }
 
 function makePieces(x, y) {
-  // let basicPiece = {
-  //   pieceX: x * cellSize + cellSize/2,
-  //   pieceY: y * cellSize + cellSize/2,
-  //   pieceD: cellSize/1.5,
-  //   pieceStroke: 0,
-  // };
+  let pieceGoalFinder;
+  if (y > 4) {
+    pieceGoalFinder = 8;
+  }
+  else if (y < 3) {
+    pieceGoalFinder = 0;
+  }
+  let basicPiece = {
+    pieceX: x * cellSize + cellSize/2,
+    pieceY: y * cellSize + cellSize/2,
+    pieceD: cellSize/1.5,
+    pieceStroke: 0,
+    pieceGoal: GRID_SIZE - pieceGoalFinder,
+  };
 
-  // .push(basicPiece)
+  grid.push(basicPiece);
   circle(basicPiece.pieceX, basicPiece.pieceY, basicPiece.pieceD);
 }
 
