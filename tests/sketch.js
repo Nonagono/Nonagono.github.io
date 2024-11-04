@@ -14,7 +14,8 @@ const LIGHT_TILE = 0;
 const DARK_TILE = 1;
 let playerPiece = 2;
 let botPiece = 3;
-
+let selected = 0;
+    
 function setup() {
   if (windowWidth < windowHeight) {
     createCanvas(windowWidth, windowWidth);
@@ -25,7 +26,7 @@ function setup() {
   cellSize = height/GRID_SIZE;
   grid = generateBoard(GRID_SIZE, GRID_SIZE);
 }
-
+    
 function windowResized() {
   if (windowWidth < windowHeight) {
     resizeCanvas(windowWidth, windowWidth);
@@ -35,28 +36,34 @@ function windowResized() {
   }
   cellSize = height/GRID_SIZE;
 }
-
+    
 function draw() {
   background(220);
   displayGrid();
 }
-
+    
 function mousePressed() {
-  let x = Math.floor(mouseX/cellSize);
-  let y = Math.floor(mouseY/cellSize);
-
-  if (grid[y][x] === playerPiece) {
-    // highlightSquare(x, y);
+  let clickX = Math.floor(mouseX/cellSize);
+  let clickY = Math.floor(mouseY/cellSize);
+    
+  for (let piece of grid) {
+    if (grid[clickY][clickX] === playerPiece) {
+      piece.pieceStroke = 255;
+    }
+    else {
+      piece.pieceStroke = 0;
+    }
   }
 }
-
+    
 // function highlightSquare(x, y) {
 // 
 // }
-
+    
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
+      stroke(0);
       if (grid[y][x] === DARK_TILE) {
         makeSquares(x, y);
       }
@@ -76,7 +83,7 @@ function displayGrid() {
     }
   }
 }
-
+    
 function makeSquares(x, y) {
   if (grid[y][x] === DARK_TILE) {
     fill(85, 52, 43);
@@ -86,7 +93,7 @@ function makeSquares(x, y) {
   }
   square(x * cellSize, y * cellSize, cellSize);
 }
-
+    
 function makePieces(x, y) {
   let pieceGoalFinder;
   if (y > 4) {
@@ -99,14 +106,13 @@ function makePieces(x, y) {
     pieceX: x * cellSize + cellSize/2,
     pieceY: y * cellSize + cellSize/2,
     pieceD: cellSize/1.5,
-    pieceStroke: 0,
     pieceGoal: GRID_SIZE - pieceGoalFinder,
   };
-
+    
   grid.push(basicPiece);
   circle(basicPiece.pieceX, basicPiece.pieceY, basicPiece.pieceD);
 }
-
+    
 function generateBoard(cols, rows) {
   let newGrid = [];
   for (let y = 0; y < rows; y++) {
@@ -130,10 +136,10 @@ function generateBoard(cols, rows) {
   }
   return newGrid;
 }
-
-
+    
+    
 // Create a way to know what piece is selected
 // Make sure when piece is moved tile stays same colour; Likely white
 // Make a way for piece to mave
 // Make a way to capture
-// Create smart Ai (Make a func to check for possible capture)
+// Create smart Ai (Make a func to check for possible capture)ieceY, basicPiece.pieceD);
