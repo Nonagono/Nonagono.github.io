@@ -45,6 +45,7 @@ function windowResized() {
 function draw() {
   background(220);
   displayBoard();
+  displayPieces();
 }
 
 function mousePressed() {
@@ -84,17 +85,29 @@ function makeSquares(x, y) {
   square(x * cellSize, y * cellSize, cellSize);
 }
 
-// function displayPieces() {
-//   for (let y = 0; y < GRID_SIZE; y++) {
-//     for (let x = 0; x < GRID_SIZE; x++) {
-//       if () {
-//         circle(basicPiece.pieceX, basicPiece.pieceY, basicPiece.pieceD);
-//       }
-//     }
-//   }
-// }
+function displayPieces() {
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      if (pieces[y][x] === 2) {
+        piecesObject(x, y);
+        makePieces(x, y);
+      }
+      else if (pieces[y][x] === 3) {
+        piecesObject(x, y);
+        makePieces(x, y);
+      }
+    }
+  }
+}
 
 function makePieces(x, y) {
+  for (let square of pieces) {
+    fill(square.colour);
+    circle(square.pieceX, square.pieceY, square.pieceD);
+  }
+}
+
+function piecesObject(x, y) {
   let pieceGoalFinder;
   let colorPlaceholder;
   if (y > 4) {
@@ -151,8 +164,9 @@ function generatePiecesArray(cols, rows) {
   }
 }
 
+// Display pieces
 // Create a way to know what piece is selected
+// Make a way for piece to move
 // Make sure when piece is moved tile stays same colour; Likely white
-// Make a way for piece to mave
 // Make a way to capture
 // Create smart Ai (Make a func to check for possible capture)
