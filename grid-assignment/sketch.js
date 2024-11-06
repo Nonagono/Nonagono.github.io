@@ -4,6 +4,7 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
+// 
 
 
 let grid;
@@ -14,7 +15,6 @@ const LIGHT_TILE = 0;
 const DARK_TILE = 1;
 let playerPiece = 2;
 let botPiece = 3;
-let selected = 0;
     
 function setup() {
   if (windowWidth < windowHeight) {
@@ -43,19 +43,16 @@ function draw() {
 }
     
 function mousePressed() {
-  let clickX = Math.floor(mouseX/cellSize);
-  let clickY = Math.floor(mouseY/cellSize);
+  let clickX1 = Math.floor(mouseX/cellSize);
+  let clickY1 = Math.floor(mouseY/cellSize);
+
+  let ClickY2 = 
     
-  for (let piece of grid) {
-    if (grid[clickY][clickX] === playerPiece) {
-      piece.pieceStroke = 255;
-    }
-    else {
-      piece.pieceStroke = 0;
-    }
+
+  if (grid[clickY1][clickX1] === playerPiece) {
+
   }
 }
-
     
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
