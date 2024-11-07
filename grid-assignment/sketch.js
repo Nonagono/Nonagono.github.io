@@ -6,7 +6,6 @@
 // - describe what you did to take this project "above and beyond"
 // 
 
-
 let grid;
 let cellSize;
 const GRID_SIZE = 8;
@@ -42,17 +41,31 @@ function draw() {
   displayGrid();
 }
     
-function mousePressed() {
-  let clickX1 = Math.floor(mouseX/cellSize);
-  let clickY1 = Math.floor(mouseY/cellSize);
+// function mousePressed() {
+//   let clickX = Math.floor(mouseX/cellSize);
+//   let clickY = Math.floor(mouseY/cellSize);
 
-  let ClickY2 = 
-    
 
-  if (grid[clickY1][clickX1] === playerPiece) {
+//   console.log(clickX);
+//   console.log(clickY);
+//   if (grid[clickY][clickX] === playerPiece) {
+//     displayMoves(clickX, clickY);
+//   }
+// }
 
-  }
-}
+// function displayMoves(x, y) {
+//   console.log("hi");
+//   for (let pieces of grid) {
+//     if (pieces.pieceX === x && pieces.pieceY === y) {
+//       pieces.pieceX += 1;
+//       console.log(pieces.pieceX);
+//     }
+//   }
+// }
+
+
+
+
     
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
