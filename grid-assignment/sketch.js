@@ -14,6 +14,7 @@ const LIGHT_TILE = 0;
 const DARK_TILE = 1;
 let playerPiece = 2;
 let botPiece = 3;
+let playerTurn = true;
     
 function setup() {
   if (windowWidth < windowHeight) {
@@ -41,27 +42,27 @@ function draw() {
   displayGrid();
 }
     
-// function mousePressed() {
-//   let clickX = Math.floor(mouseX/cellSize);
-//   let clickY = Math.floor(mouseY/cellSize);
+function mousePressed() {
+  let clickX = Math.floor(mouseX/cellSize);
+  let clickY = Math.floor(mouseY/cellSize);
 
 
-//   console.log(clickX);
-//   console.log(clickY);
-//   if (grid[clickY][clickX] === playerPiece) {
-//     displayMoves(clickX, clickY);
-//   }
-// }
+  console.log(clickX);
+  console.log(clickY);
+  if (grid[clickY][clickX] === playerPiece) {
+    displayMoves(clickX, clickY);
+  }
+}
 
-// function displayMoves(x, y) {
-//   console.log("hi");
-//   for (let pieces of grid) {
-//     if (pieces.pieceX === x && pieces.pieceY === y) {
-//       pieces.pieceX += 1;
-//       console.log(pieces.pieceX);
-//     }
-//   }
-// }
+function displayMoves(x, y) {
+  for (let pieces of grid) {
+    if (pieces.pieceX === x && pieces.pieceY === y) {
+      console.log(pieces.pieceX);
+      console.log("hi");
+      return pieces.pieceX += 1;
+    }
+  }
+}
 
 
 
@@ -110,14 +111,14 @@ function makePieces(x, y) {
     pieceGoalFinder = 0;
   }
   let basicPiece = {
-    pieceX: x * cellSize + cellSize/2,
-    pieceY: y * cellSize + cellSize/2,
+    pieceX: x,
+    pieceY: y,
     pieceD: cellSize/1.5,
     pieceGoal: GRID_SIZE - pieceGoalFinder,
   };
     
   grid.push(basicPiece);
-  circle(basicPiece.pieceX, basicPiece.pieceY, basicPiece.pieceD);
+  circle(basicPiece.pieceX * cellSize + cellSize/2, basicPiece.pieceY* cellSize + cellSize/2 , basicPiece.pieceD);
 }
     
 function generateBoard(cols, rows) {
