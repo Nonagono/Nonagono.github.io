@@ -1,11 +1,13 @@
 // Grid Based Game
 // Chase Buniak
-// November 8, 2024
+// November 15, 2024
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 // 
 
+
+// Constants and Variables used.
 let pieces;
 let board;
 let cellSize;
@@ -18,7 +20,8 @@ const EMPTY = 0;
 let playerPiece = 2;
 let botPiece = 3;
 let playerTurn = true;
-    
+
+// Creates the arrays and sets the cell size on start up.
 function setup() {
   if (windowWidth < windowHeight) {
     createCanvas(windowWidth, windowWidth);
@@ -30,7 +33,8 @@ function setup() {
   board = generateBoard(GRID_SIZE, GRID_SIZE);
   pieces = generatePieces(GRID_SIZE, GRID_SIZE);
 }
-    
+ 
+// Changes the size of the board depending on window size.
 function windowResized() {
   if (windowWidth < windowHeight) {
     resizeCanvas(windowWidth, windowWidth);
@@ -40,14 +44,14 @@ function windowResized() {
   }
   cellSize = height/GRID_SIZE;
 }
-    
+
 function draw() {
   background(220);
   displayBoard();
   displayPieces();
 }
 
-// comment
+// Runs through a nested loop to create and fill the array for the board.
 function generateBoard(cols, rows) {
   let newGrid = [];
   for (let y = 0; y < rows; y++) {
@@ -66,16 +70,16 @@ function generateBoard(cols, rows) {
   return newGrid;
 }
 
-// comment
+// Uses a nested loop and the make squares function to display the checker board.
 function displayBoard() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
-    makeSquares(x, y);
+      makeSquares(x, y);
     }
   }
 }
 
-// comment
+// Checks the value of the elements of the board array to change the fill color, then makes the squares.
 function makeSquares(x, y) {
   if (board[y][x] === DARK_TILE) {
     fill(85, 52, 43);
@@ -86,7 +90,7 @@ function makeSquares(x, y) {
   square(x * cellSize, y * cellSize, cellSize);
 }
 
-// comment
+// Uses a nested loop to create and fill the array for the pieces.
 function generatePieces(cols, rows) {
   let newArray = [];
   for (let y = 0; y < rows; y++) {
@@ -108,7 +112,7 @@ function generatePieces(cols, rows) {
   return newArray;
 }
 
-// comment
+// Uses a nested loop to create and dispay  the pieces.
 function displayPieces() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
@@ -172,7 +176,7 @@ function displayPieces() {
 
 
 
-
+// Display pieces
 // Create a way to know what piece is selected
 // Make sure when piece is moved tile stays same colour; Likely white
 // Make a way for piece to mave

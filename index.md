@@ -12,6 +12,8 @@
 - [Bubble Movement](09-bubbles)
 - [Grid Demo](11-grid)
 - [Game of Life](12-gol)
+- [Platformer](15-platformer)
+- [Walker OOP](16-walker-oop)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
