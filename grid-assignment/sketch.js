@@ -142,24 +142,24 @@ function displayPieces() {
 
 // Shows available moves when mouse is clicked on a player piece and it is the player's turn.
 function mousePressed() {
-  let clickX = Math.floor(mouseX / cellSize);
-  let clickY = Math.floor(mouseY /cellSize);
+  let pressX = Math.floor(mouseX / cellSize);
+  let pressY = Math.floor(mouseY /cellSize);
 
   if (playerTurn === true) {
     // Select Piece
-    if (pieces[clickY][clickX] === PLAYER_PIECE) {
-      pieces[clickY][clickX] = SELECTED;
-      oldPosition = [clickY, clickX];
-      availableMoves(clickX, clickY);
+    if (pieces[pressY][pressX] === PLAYER_PIECE) {
+      pieces[pressY][pressX] = SELECTED;
+      oldPosition = [pressY, pressX];
+      availableMoves(pressX, pressY);
     }
     // Deselect Piece
-    else if (pieces[clickY][clickX] === SELECTED && clickY - 1 >= 0) {
-      pieces[clickY][clickX] = PLAYER_PIECE;
-      board[clickY - 1][clickX + 1] = LIGHT_TILE;
-      board[clickY - 1][clickX - 1] = LIGHT_TILE;
-      if (clickY - 2 > 0) {
-        board[clickY - 2][clickX + 2] = LIGHT_TILE;
-        board[clickY - 2][clickX - 2] = LIGHT_TILE;
+    else if (pieces[pressY][pressX] === SELECTED && pressY - 1 >= 0) {
+      pieces[pressY][pressX] = PLAYER_PIECE;
+      board[pressY - 1][pressX + 1] = LIGHT_TILE;
+      board[pressY - 1][pressX - 1] = LIGHT_TILE;
+      if (pressY - 2 > 0) {
+        board[pressY - 2][pressX + 2] = LIGHT_TILE;
+        board[pressY - 2][pressX - 2] = LIGHT_TILE;
       }
     }
   }
@@ -190,8 +190,24 @@ function availableMoves(x, y) {
   }
 }
 
+// 
+function mouseClicked() {
+  let clickX = Math.floor(mouseX / cellSize);
+  let clickY = Math.floor(mouseY /cellSize);
+
+  if (board[clickY][clickX] === SELECTED) {
+    pieces[clickY][clickX] = PLAYER_PIECE;
+    board[oldPosition[0] - 1][oldPosition[1] + 1] = LIGHT_TILE;
+    board[oldPosition[0] - 1][oldPosition[1] - 1] = LIGHT_TILE;
+    pieces[oldPosition[0]][oldPosition[1]] = EMPTY;
+  }
+}
+
 
 // Make sure when piece is moved tile stays same colour; Likely white
 // Make a way for piece to move
 // Make a way to capture
-// Create smart Ai (Make a func to check for possible capture)ieceY, basicPiece.pieceD);
+// Create smart Ai (Make a func to check for possible capture)
+
+
+// && pieces[oldPosition[0]][oldPosition[1]] !== SELECTED

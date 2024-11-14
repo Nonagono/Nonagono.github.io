@@ -14,6 +14,7 @@
 - [Game of Life](12-gol)
 - [Platformer](15-platformer)
 - [Walker OOP](16-walker-oop)
+- [Walker OOP Array](17-walker-oop-array)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
