@@ -17,9 +17,11 @@ let shouldBePiece = true;
 const LIGHT_TILE = 0;
 const DARK_TILE = 1;
 const EMPTY = 0;
-let playerPiece = 2;
-let botPiece = 3;
+const PLAYER_PIECE = 2;
+const BOT_PIECE = 3;
+const SELECTED = 4;
 let playerTurn = true;
+let oldPosition;
 
 // Creates the arrays and sets the cell size on start up.
 function setup() {
@@ -84,8 +86,11 @@ function makeSquares(x, y) {
   if (board[y][x] === DARK_TILE) {
     fill(85, 52, 43);
   }
-  else {
+  else if (board[y][x] === LIGHT_TILE) {
     fill(216, 181, 137);
+  }
+  else {
+    fill("pink");
   }
   square(x * cellSize, y * cellSize, cellSize);
 }
@@ -98,10 +103,10 @@ function generatePieces(cols, rows) {
     shouldBePiece = !shouldBePiece;
     for (let x = 0; x < cols; x++) {
       if (shouldBePiece && y > 4) {
-        newArray[y].push(playerPiece);
+        newArray[y].push(PLAYER_PIECE);
       }
       else if (shouldBePiece && y < 3) {
-        newArray[y].push(botPiece);
+        newArray[y].push(BOT_PIECE);
       }
       else {
         newArray[y].push(EMPTY);
@@ -112,73 +117,81 @@ function generatePieces(cols, rows) {
   return newArray;
 }
 
-// Uses a nested loop to create and dispay  the pieces.
+// Uses a nested loop to create and display the pieces.
 function displayPieces() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
-      stroke(0);
-      if (pieces[y][x] === playerPiece) {
-        fill(20, 20, 20);
-        makePieces(x, y);
+      noStroke();
+      if (pieces[y][x] === PLAYER_PIECE) {
+        fill("blue");
       }
-      else if (pieces[y][x] === botPiece) {
-        fill(200, 200, 200);
-        makePieces(x, y);
+      else if (pieces[y][x] === 0) {
+        noFill();
+      }
+      else if (pieces[y][x] === BOT_PIECE) {
+        fill("red");
+      }
+      else if (pieces[y][x] === SELECTED) {
+        fill("pink");
+      }
+      circle(x * cellSize + cellSize/2, y * cellSize + cellSize/2 , cellSize);
+    }
+  }
+}
+
+
+// Shows available moves when mouse is clicked on a player piece and it is the player's turn.
+function mousePressed() {
+  let clickX = Math.floor(mouseX / cellSize);
+  let clickY = Math.floor(mouseY /cellSize);
+
+  if (playerTurn === true) {
+    // Select Piece
+    if (pieces[clickY][clickX] === PLAYER_PIECE) {
+      pieces[clickY][clickX] = SELECTED;
+      oldPosition = [clickY, clickX];
+      availableMoves(clickX, clickY);
+    }
+    // Deselect Piece
+    else if (pieces[clickY][clickX] === SELECTED && clickY - 1 >= 0) {
+      pieces[clickY][clickX] = PLAYER_PIECE;
+      board[clickY - 1][clickX + 1] = LIGHT_TILE;
+      board[clickY - 1][clickX - 1] = LIGHT_TILE;
+      if (clickY - 2 > 0) {
+        board[clickY - 2][clickX + 2] = LIGHT_TILE;
+        board[clickY - 2][clickX - 2] = LIGHT_TILE;
       }
     }
   }
 }
 
-// comment
-// function makePieces(x, y) {
-//   let pieceGoalFinder;
-//   if (y > 4) {
-//     pieceGoalFinder = 8;
-//   }
-//   else if (y < 3) {
-//     pieceGoalFinder = 0;
-//   }
-//   let basicPiece = {
-//     pieceX: x,
-//     pieceY: y,
-//     pieceD: cellSize/1.5,
-//     pieceGoal: GRID_SIZE - pieceGoalFinder,
-//   };
-    
-//   pieces.push(basicPiece);
-//   circle(basicPiece.pieceX * cellSize + cellSize/2, basicPiece.pieceY * cellSize + cellSize/2 , basicPiece.pieceD);
-// }
-    
-// function mousePressed() {
-//   let clickX = Math.floor(mouseX/cellSize);
-//   let clickY = Math.floor(mouseY/cellSize);
+// Shows the available moves and jumps
+function availableMoves(x, y) {
+  let pieceX = x;
+  let pieceY = y;
+
+  // Shows available moves
+  if (pieceY - 1 >= 0) {
+    if (pieces[pieceY - 1][pieceX + 1 ] === EMPTY) {
+      board[y - 1][x + 1] = SELECTED;
+    }
+    if (pieces[pieceY - 1][pieceX - 1] === EMPTY) {
+      board[pieceY - 1][pieceX - 1] = SELECTED;
+    }
+  }
+  // Shows available jumps
+  if (pieceY - 2 >= 0) {
+    if (pieces[pieceY - 1][pieceX - 1] === BOT_PIECE && pieces[pieceY - 2][pieceX - 2] === 0) {
+      board[pieceY-2][pieceX-2] = 2;
+    }
+    if (pieces[pieceY - 1][pieceX + 1] === BOT_PIECE && pieces[pieceY - 2][pieceX + 2] === 0) {
+      board[pieceY - 2][pieceX + 2] = 2;
+    }
+  }
+}
 
 
-//   console.log(clickX);
-//   console.log(clickY);
-//   if (pieces[clickY][clickX] === playerPiece) {
-//     displayMoves(clickX, clickY);
-//   }
-// }
-
-// function displayMoves(x, y) {
-//   for (let piece of pieces) {
-//     if (pieces.pieceX === x && pieces.pieceY === y) {
-//       console.log(pieces.pieceX);
-//       console.log("hi");
-//       return pieces.pieceX += 1;
-//     }
-//   }
-// }
-
-
-
-
-
-
-// Display pieces
-// Create a way to know what piece is selected
 // Make sure when piece is moved tile stays same colour; Likely white
-// Make a way for piece to mave
+// Make a way for piece to move
 // Make a way to capture
 // Create smart Ai (Make a func to check for possible capture)ieceY, basicPiece.pieceD);
