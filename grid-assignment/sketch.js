@@ -22,6 +22,7 @@ const BOT_PIECE = 3;
 const SELECTED = 4;
 let playerTurn = true;
 let oldPosition;
+let pieceIsSelected = false;
 
 // Creates the arrays and sets the cell size on start up.
 function setup() {
@@ -147,10 +148,11 @@ function mousePressed() {
 
   if (playerTurn === true) {
     // Select Piece
-    if (pieces[pressY][pressX] === PLAYER_PIECE) {
+    if (pieces[pressY][pressX] === PLAYER_PIECE && !pieceIsSelected) {
       pieces[pressY][pressX] = SELECTED;
       oldPosition = [pressY, pressX];
       availableMoves(pressX, pressY);
+      pieceIsSelected = !pieceIsSelected;
     }
     // Deselect Piece
     else if (pieces[pressY][pressX] === SELECTED && pressY - 1 >= 0) {
@@ -161,6 +163,7 @@ function mousePressed() {
         board[pressY - 2][pressX + 2] = LIGHT_TILE;
         board[pressY - 2][pressX - 2] = LIGHT_TILE;
       }
+      pieceIsSelected = !pieceIsSelected;
     }
   }
 }
@@ -182,10 +185,10 @@ function availableMoves(x, y) {
   // Shows available jumps
   if (pieceY - 2 >= 0) {
     if (pieces[pieceY - 1][pieceX - 1] === BOT_PIECE && pieces[pieceY - 2][pieceX - 2] === 0) {
-      board[pieceY-2][pieceX-2] = 2;
+      board[pieceY-2][pieceX-2] = SELECTED;
     }
     if (pieces[pieceY - 1][pieceX + 1] === BOT_PIECE && pieces[pieceY - 2][pieceX + 2] === 0) {
-      board[pieceY - 2][pieceX + 2] = 2;
+      board[pieceY - 2][pieceX + 2] = SELECTED;
     }
   }
 }
@@ -193,21 +196,36 @@ function availableMoves(x, y) {
 // 
 function mouseClicked() {
   let clickX = Math.floor(mouseX / cellSize);
-  let clickY = Math.floor(mouseY /cellSize);
+  let clickY = Math.floor(mouseY / cellSize);
 
+  // Regular moves
   if (board[clickY][clickX] === SELECTED) {
     pieces[clickY][clickX] = PLAYER_PIECE;
     board[oldPosition[0] - 1][oldPosition[1] + 1] = LIGHT_TILE;
     board[oldPosition[0] - 1][oldPosition[1] - 1] = LIGHT_TILE;
+    // Jumps
+    if (oldPosition[0] - 2 < 0 || oldPosition[1] < 0) {
+      board[oldPosition[0] - 1][oldPosition[1] + 1] = LIGHT_TILE;
+      board[oldPosition[0] - 1][oldPosition[1] - 1] = LIGHT_TILE;
+    }
+
+    // Check for boundaries for regular move
+    else {
+      board[oldPosition[0] - 2][oldPosition[1] + 2] = LIGHT_TILE;
+      board[oldPosition[0] - 2][oldPosition[1] - 2] = LIGHT_TILE;
+    }
     pieces[oldPosition[0]][oldPosition[1]] = EMPTY;
+
+    // Check boundaries for jump
+    if (clickY + 2 === oldPosition[0] && clickX + 2 === oldPosition[1]) {
+      pieces[clickY + 1][clickX + 1] = 0;
+    }
+    else if (clickY + 2 === oldPosition[0] && clickX - 2 === oldPosition[1]) {
+      pieces[clickY + 1][clickX - 1] = 0;
+    }
+    pieceIsSelected = !pieceIsSelected;
   }
 }
 
-
-// Make sure when piece is moved tile stays same colour; Likely white
-// Make a way for piece to move
 // Make a way to capture
 // Create smart Ai (Make a func to check for possible capture)
-
-
-// && pieces[oldPosition[0]][oldPosition[1]] !== SELECTED
