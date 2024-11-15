@@ -4,7 +4,7 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-// 
+// Created a competent ai.
 
 
 // Constants and Variables used.
@@ -23,6 +23,8 @@ const SELECTED = 4;
 let playerTurn = true;
 let oldPosition;
 let pieceIsSelected = false;
+let aiMoves;
+let aiJumps;
 
 // Creates the arrays and sets the cell size on start up.
 function setup() {
@@ -52,6 +54,7 @@ function draw() {
   background(220);
   displayBoard();
   displayPieces();
+  aiMovement();
 }
 
 // Runs through a nested loop to create and fill the array for the board.
@@ -224,8 +227,80 @@ function mouseClicked() {
       pieces[clickY + 1][clickX - 1] = 0;
     }
     pieceIsSelected = !pieceIsSelected;
+    playerTurn = false;
   }
 }
 
-// Make a way to capture
-// Create smart Ai (Make a func to check for possible capture)
+function aiMovement() {
+  aiMoves = [];
+  aiJumps = [];
+  // Check for all ai moves.
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      // Available pieces to move regularly
+      if (y + 1 < GRID_SIZE) {
+        if (pieces[y][x] === BOT_PIECE && pieces[y+1][x+1] === EMPTY && pieces[y+1][x-1] === EMPTY) {
+          aiMoves.push([y, x]);
+        }
+        if (pieces[y][x] === BOT_PIECE && pieces[y+1][x+1] !== EMPTY && pieces[y+1][x-1] === EMPTY) {
+          aiMoves.push([y, x]);
+        }
+        if (pieces[y][x] === BOT_PIECE && pieces[y+1][x+1] === EMPTY && pieces[y+1][x-1] !== EMPTY) {
+          aiMoves.push([y, x]);
+        }
+      }
+      // Available jumps
+      if (y + 2 < GRID_SIZE) {
+        if (pieces[y][x] === BOT_PIECE && pieces[y+1][x+1] === PLAYER_PIECE && pieces[y+2][x+2] === 0 && y+1 < GRID_SIZE) {
+          aiJumps.push([y, x]);
+        }
+        if (pieces[y][x] === BOT_PIECE && pieces[y+1][x-1] === PLAYER_PIECE && pieces[y+2][x-2] === 0 && y+1 < GRID_SIZE) {
+          aiJumps.push([y, x]);
+        }
+      }
+    }
+  }
+  // Move the bot's piece.
+  if (playerTurn === false) {
+    // Jump if possible
+    if (aiJumps.length > 0) {
+      let choice = random(aiJumps);
+      if (pieces[choice[0]][choice[1]] === BOT_PIECE && pieces[choice[0] + 1][choice[1] + 1] === PLAYER_PIECE && pieces[choice[0] + 2][choice[1] + 2] === EMPTY) {
+        playerTurn = true;
+        pieces[choice[0]][choice[1]] = EMPTY;
+        pieces[choice[0] + 1][choice[1] + 1] = EMPTY;
+        pieces[choice[0] + 2][choice[1] + 2] = BOT_PIECE;
+        jump = [];
+      }
+      else if (pieces[choice[0]][choice[1]] === BOT_PIECE && pieces[choice[0] + 1][choice[1] - 1] === PLAYER_PIECE && pieces[choice[0] + 2][choice[1] - 2] === EMPTY) {
+        playerTurn = true;
+        pieces[choice[0]][choice[1]] = EMPTY;
+        pieces[choice[0] + 1][choice[1] - 1] = EMPTY;
+        pieces[choice[0] + 2][choice[1] - 2] = BOT_PIECE;
+        jump = [];
+      }
+    }
+    // Move bot piece if no jump was available.
+    else if (aiMoves.length > 0) {
+      let choice = random(aiMoves);
+      if (pieces[choice[0]][choice[1]] === BOT_PIECE && pieces[choice[0] + 1][choice[1] + 1] === EMPTY && pieces[choice[0] + 1][choice[1] - 1] === EMPTY) {
+        playerTurn = true;
+        pieces[choice[0]][choice[1]] = EMPTY;
+        pieces[choice[0] + 1][choice[1] + 1] = BOT_PIECE;
+        aiMoves = [];
+      }
+      else if (pieces[choice[0]][choice[1]] === BOT_PIECE && pieces[choice[0] + 1][choice[1] + 1] !== EMPTY && pieces[choice[0] + 1][choice[1] - 1] === EMPTY) {
+        playerTurn = true;
+        pieces[choice[0]][choice[1]] = EMPTY;
+        pieces[choice[0] + 1][choice[1] - 1] = BOT_PIECE;
+        aiMoves = [];
+      }
+      else if (pieces[choice[0]][choice[1]] === BOT_PIECE && pieces[choice[0] + 1][choice[1] + 1] === PLAYER_PIECE && pieces[choice[0] + 1][choice[1] - 1] !== EMPTY) {
+        playerTurn = true;
+        pieces[choice[0]][choice[1]] = EMPTY;
+        pieces[choice[0] + 1][choice[1] + 1] = BOT_PIECE;
+        aiMoves = [];
+      }
+    }
+  }
+}
