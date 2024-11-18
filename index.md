@@ -15,6 +15,7 @@
 - [Platformer](15-platformer)
 - [Walker OOP](16-walker-oop)
 - [Walker OOP Array](17-walker-oop-array)
+- [Fireworks OOP](18-fireworks)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
