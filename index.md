@@ -18,6 +18,7 @@
 - [Fireworks OOP](18-fireworks)
 - [Connected Nodes OOP](19-nodes)
 - [Collide 2d Library](20-collide)
+- [Local Storage Demo](21-local-storage)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
