@@ -40,7 +40,6 @@ function setup() {
 }
 
 function draw() {
-
   for (let firework of theFireworks) {
     if (firework.isDead()) {
       let index = theFireworks.indexOf(firework);
@@ -50,7 +49,6 @@ function draw() {
       firework.update();
       firework.display();
     }
-
   }
 }
 
