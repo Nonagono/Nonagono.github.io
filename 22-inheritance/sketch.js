@@ -1,7 +1,7 @@
 // OOP Inheritance
 
 class Shape {
-  constructor( x, y, colour) {
+  constructor(x, y, colour) {
     this.x = x;
     this.y = y;
     this.colour = colour;
