@@ -20,6 +20,8 @@
 - [Collide 2d Library](20-collide)
 - [Local Storage Demo](21-local-storage)
 - [OOP Inheritance](22-inheritance)
+- [Fractal Circles](23-circles)
+- [Sierpinski Triangle](24-triangle)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
